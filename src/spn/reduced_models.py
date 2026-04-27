@@ -23,7 +23,7 @@ the reduced dispersion relation.
 """
 
 from dataclasses import dataclass, field
-from typing import Any, Callable, Sequence
+from typing import Callable, Sequence
 
 import numpy as np
 
@@ -94,7 +94,7 @@ class ReducedModelConfig:
     time_step: float
     k_vector: np.ndarray
     generator_fn: GeneratorFn
-    generator_params: dict[str, Any] = field(default_factory=dict)
+    generator_params: dict = field(default_factory=dict)
     branch: Branch = 1
 
     def __post_init__(self) -> None:
@@ -118,7 +118,7 @@ class ReducedModelConfig:
         if not callable(self.generator_fn):
             raise TypeError("generator_fn must be callable")
 
-        object.__setattr__(self, "k_vector", k_vector.copy())
+        object.__setattr__(self, "k_vector", np.array(k_vector, dtype=float, copy=True))
         object.__setattr__(self, "generator_params", dict(self.generator_params))
 
 
@@ -156,9 +156,6 @@ class ReducedAxisymmetricModel:
 
     @property
     def k_vector(self) -> np.ndarray:
-        """
-        Return a defensive copy of the model wave-vector.
-        """
         return self.config.k_vector.copy()
 
     @property
@@ -166,7 +163,7 @@ class ReducedAxisymmetricModel:
         return self.config.generator_fn
 
     @property
-    def generator_params(self) -> dict[str, Any]:
+    def generator_params(self) -> dict:
         return dict(self.config.generator_params)
 
     @property
@@ -343,11 +340,7 @@ class ReducedAxisymmetricModel:
         """
         Construct a default initial state and evolve it.
         """
-        state0 = self.make_state(
-            position=position,
-            spinor=spinor,
-            tick=tick,
-        )
+        state0 = self.make_state(position=position, spinor=spinor, tick=tick)
 
         return self.evolve(
             state0,
@@ -367,6 +360,9 @@ class ReducedAxisymmetricModel:
         """
         Return common trajectory arrays from a reduced-state history.
         """
+        if len(history) == 0:
+            raise ValueError("history must be non-empty")
+
         spinors = spinors_from_history(history)
 
         if spinors.ndim != 2 or spinors.shape[1] != 2:
