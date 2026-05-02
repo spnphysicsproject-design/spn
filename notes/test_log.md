@@ -243,6 +243,7 @@ The current tests are implementation and internal-consistency tests. The next st
    - Move beyond the two-level reduced model.
    - Construct a 4-level or larger truncation.
    - Measure low-sector retention and leakage under controlled inter-sector coupling.
+   - `tests/test_enlarged_sector_leakage.py` — Paper-2 enlarged-sector leakage / reduction-stability toy tests: embeds the tested 2D reduced Hamiltonian into a controlled 4D low-plus-complement model, verifies the low block matches the current reduced Hamiltonian, verifies exact block closure at zero coupling up to numerical precision, checks agreement with the original two-level reduced unitary when decoupled, checks total norm preservation, and confirms peak leakage increases with stronger low-complement coupling or smaller complement-sector separation across representative low-sector initial states. This is a controlled toy enlarged-sector pressure test, not a derivation of full \(L^2(S^2)\) sector stability — Passing
 
 The enlarged-sector leakage test is the most important conceptual pressure test because it asks whether the two-level reduction is approximately stable rather than merely convenient.
 
