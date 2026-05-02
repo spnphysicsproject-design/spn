@@ -227,10 +227,12 @@ The current tests are implementation and internal-consistency tests. The next st
 2. **Low-k massive/Dirac-like dispersion fit**
    - Fit `E_+(k)` against `k^2` for small `k`.
    - Check agreement with the expected low-k expansion.
+   - `tests/test_low_k_dispersion.py` — Paper-2 low-k massive/Dirac-like dispersion tests: exact reduced dispersion, small-k positive/negative branch quadratic expansion, fitted positive-branch coefficient, linear low-k group velocity, and k=0 half-gap convention — Passing
 
 3. **Generator-family robustness**
    - Compare Laplace-Beltrami, linear-in-`L^2`, and polynomial generator families.
    - Check unitary stability, energy gap behaviour, and bounded group speed.
+   - `tests/test_generator_family_robustness.py` — Paper-2 generator-family robustness tests: Laplace–Beltrami, linear-in-\(L^2\), and polynomial generators preserve finite nonzero low-sector half-gap, Hermiticity, unitarity, exact dispersion, isotropy, bounded reduced group speed, branch direction conventions, and low-\(k\) quadratic behaviour — Passing
 
 4. **Long-time stability**
    - Evolve for `10_000` or more ticks.
