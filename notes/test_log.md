@@ -237,6 +237,7 @@ The current tests are implementation and internal-consistency tests. The next st
 4. **Long-time stability**
    - Evolve for `10_000` or more ticks.
    - Track norm drift, Bloch radius drift, and packet-centre linearity.
+   - `tests/test_long_time_stability.py` — Paper-2 long-time numerical stability tests over 10,000 model ticks: preserves spinor norm, packet-centre motion matches analytic reduced group velocity, per-tick packet displacement remains constant, reduced packet speed stays below `L/(tau sqrt(3))`, and no-history evolution returns the correct final state. — Passing
 
 5. **Enlarged-sector leakage test**
    - Move beyond the two-level reduced model.
